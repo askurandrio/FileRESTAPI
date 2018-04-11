@@ -11,7 +11,7 @@ COPY . /opt/filerestapi
 RUN python3 -m pip install -r /opt/filerestapi/etc/requirements.txt
 RUN chmod +x /opt/filerestapi/bin/run.sh /opt/filerestapi/tests/run.sh
 RUN python3 /opt/filerestapi/bin/manager.py \
-        --dbpath 'sqlite:////opt/filerestapi/db/sql.db' \
+        --dbpath '/opt/filerestapi/db/sql.db' \
         --filestorage_path /opt/filerestapi/filestorage/
 
 CMD /opt/filerestapi/bin/run.sh

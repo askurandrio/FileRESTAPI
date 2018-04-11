@@ -7,15 +7,12 @@ from ..Configuration import Configuration
 
 
 BASE = sqlalchemy.ext.declarative.declarative_base()
-SESSIONMAKER = None
 
 
 def make_session():
     """Make a session"""
-    global SESSIONMAKER #pylint: disable=W0603
-    if SESSIONMAKER is None:
-        SESSIONMAKER = make_sessionmaker(Configuration().get_dbpath())
-    return SESSIONMAKER()
+    sessionmaker = make_sessionmaker('sqlite:///' + Configuration().get_dbpath())
+    return sessionmaker()
 
 
 def make_sessionmaker(dbpath):

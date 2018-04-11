@@ -19,6 +19,17 @@ class FileResource(flask_restful.Resource):
         return {'file_id':file.oid}, 201
 
     @staticmethod
+    def put(file_id):
+        """Update the file"""
+        session = make_session()
+        file = session.query(File).get(file_id)
+        if file is None:
+            return 'File not found', 404
+        file.filename = request.args['filename']
+        session.commit()
+        return '', 200
+
+    @staticmethod
     def get(file_id=None):
         """Get the file or files info"""
         session = make_session()
@@ -34,9 +45,9 @@ class FileResource(flask_restful.Resource):
             return root, 200
 
         file = session.query(File).get(file_id)
-
         if file is None:
             return 'File not found', 404
+
         def read_file():
             """Read th file"""
             fstream = file.openf('rb')

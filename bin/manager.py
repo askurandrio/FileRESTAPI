@@ -21,9 +21,11 @@ def main(args):
     config.write(open(CONFIG_PATH, 'w'))
 
     if args.clean:
-        db_path = config.get('DB', 'path')
-        if os.path.exists(db_path):
-            os.remove(db_path)
+        dbpath = config.get('DB', 'path')
+        if os.path.exists(dbpath):
+            os.remove(dbpath)
+        else:
+            print('This path is not exists: {}'.format(dbpath))
 
         filestorage_path = config.get('FileStorage', 'path')
         for filename in os.listdir(filestorage_path):
